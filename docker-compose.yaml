@@ -1,0 +1,20 @@
+version: '3'
+
+services:
+  api:
+    container_name: cactus_api
+    restart: unless-stopped
+    image: cactus_api:latest
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+
+  mysql:
+    container_name: cactus_mysql
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: 'root'
+      MYSQL_DATABASE: 'root'
+    volumes:
+      - ./docker/init/mysql:/docker-entrypoint-initdb.d
+
